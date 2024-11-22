@@ -13,22 +13,25 @@ class Executor {
 public:
     // 构造函数：默认初始化位置为(0, 0) 朝向为North
     Executor(int x = 0, int y = 0, Direction heading = Direction::North);
-    // 执行一条指令
-    void executeCommand(char command);
     // 执行一系列指令
     void executeCommands(const std::string& commands);
     // 获取当前的位置（x, y）
     std::pair<int, int> getPosition();
-    // 获取当前的朝向
-    Direction getHeading();
+    std::string getHeading();
 private:
     int posX;
     int posY;
     Direction heading;
-
+    bool isFast;
     // 转向和移动的辅助函数
     void moveForward();
     void turnLeft();
     void turnRight();
+    //改变加速状态
+    void changeStatus();
+    // 获取当前的朝向
+    Direction Heading();
+    // 执行一条指令
+    void executeCommand(char command);
 };
 #endif // EXECUTOR_H
