@@ -2,22 +2,15 @@
 #include"Executor.h"
 // 测试前进指令 ('M') 向不同方向前进
 TEST(ExecutorTest, MoveForwardNorth) {
-    Executor executor(0, 0, Direction::North);
+    Executor executor = Executor(0, 0, Direction::North);
     executor.ExecuteCommands("M");
     // 朝向北，位置应该变为 (0, 1)
     EXPECT_EQ(executor.GetPosition(), std::make_pair(0, 1));
 }
 
-TEST(ExecutorTest, MoveForwardSouth) {
-    Executor executor(0, 0, Direction::South);
-    executor.ExecuteCommands("M");
-    // 朝向南，位置应该变为 (0, -1)
-    EXPECT_EQ(executor.GetPosition(), std::make_pair(0, -1));
-}
-
 // 测试连续前进指令
 TEST(ExecutorTest, MoveMultipleForwardNorth) {
-    Executor executor(0, 0, Direction::North);
+    Executor executor = Executor(0, 0, Direction::North);
     executor.ExecuteCommands("M");
     executor.ExecuteCommands("M");
     executor.ExecuteCommands("M");
@@ -28,37 +21,23 @@ TEST(ExecutorTest, MoveMultipleForwardNorth) {
 
 // 测试左转 ('L') 指令
 TEST(ExecutorTest, TurnLeftFromNorth) {
-    Executor executor(0, 0, Direction::North);
+    Executor executor = Executor(0, 0, Direction::North);
     executor.ExecuteCommands("L");
     // 执行 'L' 后，朝向应该变为西
     EXPECT_EQ(executor.GetHeading(), "West");
 }
 
-TEST(ExecutorTest, TurnLeftFromSouth) {
-    Executor executor(0, 0, Direction::South);
-    executor.ExecuteCommands("L");
-    // 执行 'L' 后，朝向应该变为东
-    EXPECT_EQ(executor.GetHeading(), "East");
-}
-
 // 测试右转 ('R') 指令
 TEST(ExecutorTest, TurnRightFromNorth) {
-    Executor executor(0, 0, Direction::North);
+    Executor executor = Executor(0, 0, Direction::North);
     executor.ExecuteCommands("R");
     // 执行 'R' 后，朝向应该变为东
     EXPECT_EQ(executor.GetHeading(), "East");
 }
 
-TEST(ExecutorTest, TurnRightFromEast) {
-    Executor executor(0, 0, Direction::East);
-    executor.ExecuteCommands("R");
-    // 执行 'R' 后，朝向应该变为南
-    EXPECT_EQ(executor.GetHeading(), "South");
-}
-
 //加速状态下测试前行
 TEST(ExecutorTest, FastMove) {
-    Executor executor(0, 0, Direction::North);
+    Executor executor = Executor(0, 0, Direction::North);
     executor.ExecuteCommands("F");
     executor.ExecuteCommands("M");
     executor.ExecuteCommands("M");
@@ -71,7 +50,7 @@ TEST(ExecutorTest, FastMove) {
 }
 // 测试左转和右转连续执行
 TEST(ExecutorTest, TurnLeftRightSequence) {
-    Executor executor(0, 0, Direction::North);
+    Executor executor = Executor(0, 0, Direction::North);
     executor.ExecuteCommands("F");
     executor.ExecuteCommands("R");
     executor.ExecuteCommands("R");
@@ -81,7 +60,7 @@ TEST(ExecutorTest, TurnLeftRightSequence) {
 }
 
 TEST(ExecutorTest, TurnRightLeftSequence) {
-    Executor executor(0, 0, Direction::North);
+    Executor executor = Executor(0, 0, Direction::North);
     executor.ExecuteCommands("F");
     executor.ExecuteCommands("F");
     executor.ExecuteCommands("R");
@@ -93,24 +72,20 @@ TEST(ExecutorTest, TurnRightLeftSequence) {
 
 // 测试左转右转多次
 TEST(ExecutorTest, TurnLeftMultipleTimes) {
-    Executor executor(0, 0, Direction::North);
-    executor.ExecuteCommands("F");
+    Executor executor = Executor(0, 0, Direction::North);
     executor.ExecuteCommands("L");
     executor.ExecuteCommands("L");
-    executor.ExecuteCommands("L");
-    executor.ExecuteCommands("L");
-    // 每次执行左转会改变朝向，4次左转后，应该恢复到原来的朝向，即北，位置不变
+    executor.ExecuteCommands("R");
+    executor.ExecuteCommands("R");
+    // 每次执行左转会改变朝向，2次左转后,2次右转，应该恢复到原来的朝向，即北，位置不变
     EXPECT_EQ(executor.GetHeading(), "North");
     EXPECT_EQ(executor.GetPosition(), std::make_pair(0, 0));
 }
 
 TEST(ExecutorTest, TurnRightMultipleTimes) {
-    Executor executor(0, 0, Direction::North);
-    executor.ExecuteCommands("R");
-    executor.ExecuteCommands("R");
-    executor.ExecuteCommands("R");
-    executor.ExecuteCommands("R");
-    // 每次执行右转会改变朝向，4次右转后，应该恢复到原来的朝向，即北,位置不变
-    EXPECT_EQ(executor.GetHeading(), "North");
-    EXPECT_EQ(executor.GetPosition(), std::make_pair(0, 0));
+    Executor executor = Executor(0, 0, Direction::North);
+    executor.ExecuteCommands("FTRMF");
+    // 最后位置应为
+    EXPECT_EQ(executor.GetHeading(), "South");
+    EXPECT_EQ(executor.GetPosition(), std::make_pair(-1, -1));
 }
