@@ -1,5 +1,6 @@
 #include"pch.h"
 #include"./Executor.h"
+using namespace adas;
 // 测试多个指令组合
 TEST(ExecutorTest, ComplexCommands1) {
     Executor executor(1, 1, Direction::North);

@@ -1,5 +1,6 @@
 #include "pch.h"
 #include"./Executor.h"
+using namespace adas;
 TEST(ExecutorTest, Initialization) {
     Executor executor = Executor(0, 0, Direction::North);
     // 初始位置应该是 (0, 0)，朝向是北

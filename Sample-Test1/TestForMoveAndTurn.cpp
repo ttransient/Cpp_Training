@@ -1,5 +1,6 @@
 #include"pch.h"
 #include"Executor.h"
+using namespace adas;
 // 测试前进指令 ('M') 向不同方向前进
 TEST(ExecutorTest, MoveForwardNorth) {
     Executor executor = Executor(0, 0, Direction::North);

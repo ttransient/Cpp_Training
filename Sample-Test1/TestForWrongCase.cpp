@@ -1,5 +1,6 @@
 #include"pch.h"
 #include"./Executor.h"
+using namespace adas;
 // ≤‚ ‘Œﬁ–ß÷∏¡Ó
 TEST(ExecutorTest, InvalidCommand) {
     Executor executor = Executor(0, 0, Direction::North);

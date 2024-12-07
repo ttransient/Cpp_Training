@@ -6,6 +6,7 @@
 #include<Memory>
 #include <utility>
 // 定义方向枚举
+namespace adas{
 enum class Direction {
     North = 0, // 'N'
     East = 1,  // 'E'
@@ -30,13 +31,13 @@ public:
     // 获取当前的位置（x, y）
     std::pair<int, int> GetPosition()noexcept;
     std::string GetHeading()noexcept;
-private:
+protected:
     Status status;
     std::unordered_map<char, std::function<void()>>cmderMap;
     // 转向和移动的辅助函数
-    void MoveForward()noexcept;
-    void TurnLeft()noexcept;
-    void TurnRight()noexcept;
+    virtual void MoveForward()noexcept;
+    virtual void TurnLeft()noexcept;
+    virtual void TurnRight()noexcept;
     //改变加速状态
     void ChangeStatus()noexcept;
     //改变倒车状态
@@ -47,4 +48,5 @@ private:
     void ExecuteCommand(char command);
     void TurnRonud()noexcept;
 };
+}
 #endif // EXECUTOR_H

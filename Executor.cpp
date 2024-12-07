@@ -2,7 +2,7 @@
 #include <stdexcept>
 #include <array>
 #include <iostream>
-
+using namespace adas;
 // 定义转向数组，用于计算左转和右转
 const std::array<Direction, 4> directionArray = { Direction::North, Direction::East, Direction::South, Direction::West };
 
